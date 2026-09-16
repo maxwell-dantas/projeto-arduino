@@ -145,6 +145,8 @@ struct Movimentos {
 
 Movimentos jarvis;
 
+const long tempoMovimento = 1000; // em miliseg
+
 void setup() {
   // Configurando pinos das Ponte H "A" e "B" como saída
   pinMode(motorA_IN1, OUTPUT);
@@ -169,39 +171,14 @@ void setup() {
   Serial.begin(9600); 
 }
 
-// Função para ler a distância em centímetros
-long medirDistancia() {
-  digitalWrite(TRIG_PIN, LOW);
-  delayMicroseconds(2);
-  digitalWrite(TRIG_PIN, HIGH);
-  delayMicroseconds(10);
-  digitalWrite(TRIG_PIN, LOW);
-
-  long duracao = pulseIn(ECHO_PIN, HIGH);
-  long distancia = duracao * 0.034 / 2; // distância em cm
-  return distancia;
+void sequenciaMovimentos() {
+  jarvis.andarFrente(tempoMovimento);
+  jarvis.andarTras(tempoMovimento);
+  jarvis.girarDireitaFrente(tempoMovimento);
+  jarvis.girarEsquerdaFrente(tempoMovimento);
+  jarvis.giroPerfeitoHorario(tempoMovimento);
 }
 
 void loop() {
-  long distancia = medirDistancia();
-  
-  // Debug: mostra a distância no Monitor Serial 
-  Serial.print("Distancia: ");
-  Serial.print(distancia);
-  Serial.println(" cm");
-
-  // se encontrar algo a 30cm ou menos para e muda o comportamento
-  if (distancia > 0 && distancia <= 30) {
-    jarvis.pararRobo();
-    delay(300); 
-    
-    // Rotina de desvio
-    jarvis.andarTras(800); 
-    jarvis.giroPerfeitoHorario(700);
-  } 
-  else {
-    jarvis.moverFrenteContinuo();
-  }
-
-  delay(50); 
+  sequenciaMovimentos();
 }
