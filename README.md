@@ -5,7 +5,7 @@ pontes H e sensor ultrassônico HC-SR04. O robô movimenta-se continuamente para
 a frente e executa uma rotina de desvio quando identifica um obstáculo a até
 30 cm.
 
-> **Versão principal:** [`jarvis/jarvis_v4.ino`](./jarvis/jarvis_v4.ino)
+> **Versão principal:** [`jarvis/jarvis_v4.ino`](./jarvis/jarvis_v4-1.ino)
 
 ## Funcionalidades
 
